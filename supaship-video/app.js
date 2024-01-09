@@ -1,8 +1,8 @@
 // initalizing Supabase Client
 const { createClient } = supabase;
-const supaUrl = "https://ttxmhpdjbrpwpcqfqkcs.supabase.co";
+const supaUrl = "https://tt.supabase.co";
 const supaAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0eG1ocGRqYnJwd3BjcWZxa2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQ2MDg5MzksImV4cCI6MjAyMDE4NDkzOX0.Li4BMj8lWu-W7CoT5woh3wk-uNO2rYVCbJN63iFnMbU";
+  "ey...";
 
 const supaClient = createClient(supaUrl, supaAnonKey);
 
@@ -205,11 +205,14 @@ function handleMyThingsUpdate(update) {
   renderMyThings();
 }
 
+// Listens for changes to the user's things and subscribes to updates
 async function listenToMyThingsChanges(user) {
-  // if there already exists a subscription, return without creating a new one
+  // Check if there's already an existing subscription, return if true
   if (myThingsSubscription) {
     return;
   }
+
+  // Set up a subscription to listen for changes to the 'things' table
   myThingsSubscription = supaClient
     .channel(`public:things:owner=eq.${user.id}`)
     .on(
@@ -225,7 +228,9 @@ async function listenToMyThingsChanges(user) {
     .subscribe();
 }
 
+// Renders the user's things in a table format
 function renderMyThings() {
+  // HTML template for the table header
   const tableHeader = `
   <thead>
     <tr>
@@ -234,6 +239,8 @@ function renderMyThings() {
       <th></th>
     </tr>
   </thead>`;
+
+  // Generate HTML for each thing and sort by weight
   const tableContents = Object.values(myThings)
     .sort((a, b) => (a.weight > b.weight ? -1 : 1))
     .map((thing) => {
@@ -246,14 +253,19 @@ function renderMyThings() {
   </tr>`;
     })
     .join("");
+
+  // Combine header and contents to create the table HTML
   const table = `
   <table class="table table-striped">
     ${tableHeader}
     <tbody>${tableContents}</tbody>
   </table>`;
+
+  // Insert the table HTML into the specified DOM element
   myThingsList.innerHTML = table;
 }
 
+// Generates the delete button HTML for a thing
 function deleteButtonTemplate(thing) {
   return `
   <button
@@ -264,8 +276,10 @@ function deleteButtonTemplate(thing) {
   </button>`;
 }
 
+// Deletes a thing by its ID using the Supabase client
 async function deleteAtId(id) {
   await supaClient.from("things").delete().eq("id", id);
 }
 
+// Trash icon emoji for delete buttons
 const trashIcon = `🗑️`;
