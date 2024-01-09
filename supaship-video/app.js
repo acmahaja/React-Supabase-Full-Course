@@ -1,8 +1,8 @@
 // initalizing Supabase Client
 const { createClient } = supabase;
-const supaUrl = "https://tt.supabase.co";
+const supaUrl = "https://ttxmhpdjbrpwpcqfqkcs.supabase.co";
 const supaAnonKey =
-  "eyJh...";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0eG1ocGRqYnJwd3BjcWZxa2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQ2MDg5MzksImV4cCI6MjAyMDE4NDkzOX0.Li4BMj8lWu-W7CoT5woh3wk-uNO2rYVCbJN63iFnMbU";
 
 const supaClient = createClient(supaUrl, supaAnonKey);
 
