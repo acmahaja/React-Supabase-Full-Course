@@ -2,7 +2,7 @@
 const { createClient } = supabase;
 const supaUrl = "https://tt.supabase.co";
 const supaAnonKey =
-  "eyJ...";
+  "eyJh...";
 
 const supaClient = createClient(supaUrl, supaAnonKey);
 
