@@ -1,0 +1,1 @@
+[Live Deployment](https://supabase-video.netlify.app/)
