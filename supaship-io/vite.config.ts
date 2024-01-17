@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     hmr: {},
+    // set the port
     port: 1337,
   }
 })
